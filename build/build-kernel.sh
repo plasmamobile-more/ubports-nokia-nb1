@@ -22,13 +22,15 @@ esac
 export ARCH
 export CROSS_COMPILE=$TMPDOWN/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 export CROSS_COMPILE_ARM32=$TMPDOWN/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
-PATH=$$TMPDOWN/linux-x86/clang-r365631c/bin/:$TMPDOWN/aarch64-linux-android-4.9/bin/:$PATH
-export PATH
+MAKEOPTS=""
+if [ -n "$CC" ]; then
+    MAKEOPTS="CC=$CC"
+fi
 
 cd "$KERNEL_DIR"
 make O="$OUT" $deviceinfo_kernel_defconfig
-make O="$OUT" CC=$CC -j$(nproc --all)
-make O="$OUT" CC=$CC INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$INSTALL_MOD_PATH" modules_install
+make O="$OUT" $MAKEOPTS -j$(nproc --all)
+make O="$OUT" $MAKEOPTS INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$INSTALL_MOD_PATH" modules_install
 ls "$OUT/arch/$ARCH/boot/"*Image*
 
 if [ -n "$deviceinfo_kernel_apply_overlay" ] && $deviceinfo_kernel_apply_overlay; then
