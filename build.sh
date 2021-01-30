@@ -60,8 +60,8 @@ cd "$TMPDOWN"
         "https://github.com/halium/initramfs-tools-halium/releases/download/continuous/initrd.img-touch-${RAMDISK_ARCH}"
     
     if [ -n "$deviceinfo_kernel_apply_overlay" ] && $deviceinfo_kernel_apply_overlay; then
-        git clone https://android.googlesource.com/platform/system/libufdt -b pie-gsi --depth 1
-        git clone https://android.googlesource.com/platform/external/dtc -b pie-gsi --depth 1
+        [ -d libufdt ] || git clone https://android.googlesource.com/platform/system/libufdt -b pie-gsi --depth 1
+        [ -d dtc ] || git clone https://android.googlesource.com/platform/external/dtc -b pie-gsi --depth 1
     fi
     ls .
 cd "$HERE"
