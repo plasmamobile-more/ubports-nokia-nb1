@@ -24,7 +24,6 @@ flashable:
     paths:
       - out/boot.img
       - out/system.img
-  when: manual
 
 devel-flashable:
   stage: deploy
@@ -39,3 +38,4 @@ devel-flashable:
     paths:
       - out/boot.img
       - out/system.img
+  when: manual
