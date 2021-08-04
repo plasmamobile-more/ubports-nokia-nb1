@@ -29,6 +29,17 @@ if [ -d "$HERE/recovery/overlay" ] && [ -e "$HERE/recovery/ramdisk-recovery.img"
     gzip -dc "$HERE/recovery/ramdisk-recovery.img" | cpio -i
     cp -r "$HERE/recovery/overlay"/* "$HERE/ramdisk-recovery"
 
+    # Set values in prop.default based on deviceinfo
+    sed -i 's/^\(ro\.product\.\(vendor\.\)\?brand=\).*$/\1'"$deviceinfo_manufacturer"'/' prop.default
+    sed -i 's/^\(ro\.product\.\(vendor\.\)\?manufacturer=\).*$/\1'"$deviceinfo_manufacturer"'/' prop.default
+    sed -i 's/^\(ro\.product\.vendor\.name=\).*$/\1'"$deviceinfo_manufacturer"'/' prop.default
+
+    sed -i 's/^\(ro\.product\.\(vendor\.\)\?device=\).*$/\1'"$deviceinfo_codename"'/' prop.default
+    sed -i 's/^\(ro\.product\.name=\).*$/\1'"$deviceinfo_codename"'/' prop.default
+    sed -i 's/^\(ro\.build\.product=\).*$/\1'"$deviceinfo_codename"'/' prop.default
+
+    sed -i 's/^\(ro\.product\.\(vendor\.\)\?model=\).*$/\1'"$deviceinfo_name"'/' prop.default
+
     find . | cpio -o -H newc | gzip > "$HERE/recovery/ramdisk-recovery-overlayed.img"
 fi
 
