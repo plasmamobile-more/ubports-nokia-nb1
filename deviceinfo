@@ -8,7 +8,7 @@ deviceinfo_kernel_source="https://gitlab.com/ubports/community-ports/android9/xi
 deviceinfo_kernel_source_branch="halium-9.0"
 deviceinfo_kernel_defconfig="sagit_defconfig"
 deviceinfo_kernel_cmdline="androidboot.console=ttyMSM0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 service_locator.enable=1 swiotlb=2048 selinux=0 apparmor=1 security=apparmor console=tty0 systempart=/dev/disk/by-partlabel/system"
-deviceinfo_kernel_clang_compile="true"
+deviceinfo_kernel_clang_compile="false"
 deviceinfo_kernel_apply_overlay="false"
 deviceinfo_generate_bootimg="true"
 deviceinfo_bootimg_qcdt="false"
