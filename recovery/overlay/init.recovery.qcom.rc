@@ -25,17 +25,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import /init.recovery.qcom_decrypt.rc
+
+on boot
+    setprop sys.usb.config mtp,adb
+
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-
-on post-fs-data
-    start setup_fake_cache
-    wait_for_prop halium.datamount.done 1
-
-service setup_adbd /sbin/sh /setup_adbd.sh
-    disabled
-
-service setup_fake_cache /sbin/sh /setup_fake_cache.sh
-    disabled
-    oneshot
